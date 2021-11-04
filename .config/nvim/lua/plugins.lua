@@ -21,4 +21,9 @@ return require("packer").startup(function(use)
 		requires = 'kyazdani42/nvim-web-devicons',
 		config = pconf("nvimtree")
 	}
+
+	use {
+		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate"
+	}
 end)
