@@ -206,3 +206,4 @@ bar {
 bindsym Mod1+space exec rofi -show combi
 exec nitrogen --restore
 #default_border pixel
+exec wired
