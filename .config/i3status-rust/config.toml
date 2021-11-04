@@ -7,18 +7,15 @@ max_width = 50
 show_marks = "visible"
 
 [[block]]
-block = "pacman"
-interval = 600
-format = "{pacman} updates available"
-format_singular = "{pacman} update available"
-format_up_to_date = "system up to date"
-critical_updates_regex = "(linux|linux-lts|linux-zen)"
-on_click = "i3-msg reload"
+block = "music"
+buttons = ["prev", "play", "next"]
 
 [[block]]
 block = "disk_space"
 info_type = "used"
 format = "{icon} {used}/{total}"
+warning = 80
+alert = 95
 
 [[block]]
 block = "memory"
@@ -37,6 +34,10 @@ critical_swap = 95
 block = "cpu"
 interval = 1
 format = "{barchart} {utilization}"
+
+[[block]]
+block = "sound"
+max_vol = 100
 
 [[block]]
 block = "time"
