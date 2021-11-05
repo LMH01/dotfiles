@@ -32,8 +32,5 @@ return require("packer").startup(function(use)
 
 	use "cespare/vim-toml"
 
-	use({
-		"cespare/vim-toml",
-		branch = "main",
-	})
+	use("sheerun/vim-polyglot")
 end)
