@@ -24,10 +24,16 @@ return require("packer").startup(function(use)
 
 	use {
 		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate"
+		run = ":TSUpdate",
+		config = pconf("treesitter")
 	}
 
 	use "joshdick/onedark.vim"
 
-	use "vim-latex/vim-latex"
+	use "cespare/vim-toml"
+
+	use({
+		"cespare/vim-toml",
+		branch = "main",
+	})
 end)
