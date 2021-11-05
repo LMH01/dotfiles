@@ -4,4 +4,5 @@ vim.g.coc_global_extensions = {
 	"coc-sumneko-lua",
 	"coc-rust-analyzer",
 	"coc-toml",
+	"coc-texlab"
 }

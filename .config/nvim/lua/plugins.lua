@@ -28,4 +28,6 @@ return require("packer").startup(function(use)
 	}
 
 	use "joshdick/onedark.vim"
+
+	use "vim-latex/vim-latex"
 end)
