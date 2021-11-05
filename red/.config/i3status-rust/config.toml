@@ -36,4 +36,7 @@ block = "sound"
 max_vol = 100
 
 [[block]]
+block = "battery"
+
+[[block]]
 block = "time"
