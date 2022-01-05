@@ -33,4 +33,8 @@ return require("packer").startup(function(use)
 	use "cespare/vim-toml"
 
 	use("sheerun/vim-polyglot")
+	use {
+  	"nvim-telescope/telescope.nvim",
+  	requires = "nvim-lua/plenary.nvim",
+  }
 end)
