@@ -143,11 +143,11 @@ touch /etc/sddm.conf
 printf "[Theme]\nCurrent=archlinux-simplyblack" > /etc/sddm.conf
 # Copy config files
 echo "Copying config files"
-su $(logname) -c "mkdir -p ~/.config/fish && cp -rf $configFolder/fish ~/.config/fish"
-su $(logname) -c "mkdir -p ~/.config/i3 && cp -rf $configFolder/i3 ~/.config/i3"
-su $(logname) -c "mkdir -p ~/.config/i3status-rust && cp -rf $configFolder/i3status-rust ~/.config/i3status-rust"
-su $(logname) -c "mkdir -p ~/.config/rofi && cp -rf $configFolder/rofi ~/.config/rofi"
-su $(logname) -c "mkdir -p ~/.config/wired && cp -rf $configFolder/wired ~/.config/wired"
+su $(logname) -c "mkdir -p ~/.config/fish && cp -rf $configFolder/fish ~/.config/"
+su $(logname) -c "mkdir -p ~/.config/i3 && cp -rf $configFolder/i3 ~/.config/"
+su $(logname) -c "mkdir -p ~/.config/i3status-rust && cp -rf $configFolder/i3status-rust ~/.config/"
+su $(logname) -c "mkdir -p ~/.config/rofi && cp -rf $configFolder/rofi ~/.config/"
+su $(logname) -c "mkdir -p ~/.config/wired && cp -rf $configFolder/wired ~/.config/"
 cp -rf $configFolder/../etc/pacman.conf /etc/
 cp -rf $configFolder/../etc/paru.conf /etc/
 # Ask if the nvim config files should be copied or if a symlink should be created that points to the git folder
