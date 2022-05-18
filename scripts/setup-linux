@@ -84,9 +84,10 @@ else
     cd ..
 fi
 # Check if dotfiles exist
-configFolder="$(rootFolder)/../.config";
+configFolder=$(builtin cd "$rootFolder/../.config"; pwd);
+echo "Config folder: $configFolder"
 dotfilesCloned=true
-if ! [[ -f "$rootFolder/.config" ]]
+if ! [[ -d "$configFolder" ]]
 then
     dotfilesCloned=false
     echo "Cloning dofiles repository"
@@ -156,7 +157,7 @@ if $dotfilesCloned
 then
     read -p "Create symlink to nvim config files instead of copying them? [Y(recommended)/n] " -r
     echo    # (optional) move to a new line
-    if [[ ! $REPLY =~ ^[Yy]$ ]]
+    if [[ $REPLY =~ ^[Yy]$ ]]
     then
         su $(logname) -c "ln -s $configFolder/nvim ~/.config/nvim"
         echo "Symlink created"
