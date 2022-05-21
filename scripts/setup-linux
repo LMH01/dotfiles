@@ -84,7 +84,7 @@ else
     cd ..
 fi
 # Check if dotfiles exist
-configFolder=$(builtin cd "$rootFolder/../.config"; pwd);
+configFolder=$(builtin cd "$rootFolder/../general/.config"; pwd);
 echo "Config folder: $configFolder"
 dotfilesCloned=true
 if ! [[ -d "$configFolder" ]]
@@ -95,7 +95,7 @@ then
         cd /tmp/setup-linux
         exec git clone https://github.com/LMH01/dotfiles.git
     )
-    configFolder="$(pwd)/dotfiles/.config"
+    configFolder="$(pwd)/dotfiles/general/.config"
 fi
 # Install other required packages
 (
