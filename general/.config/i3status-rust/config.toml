@@ -36,9 +36,6 @@ interval = 1
 format = "{barchart} {utilization}"
 
 [[block]]
-block = "temperature"
-
-[[block]]
 block = "sound"
 max_vol = 100
 
