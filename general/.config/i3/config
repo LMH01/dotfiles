@@ -209,9 +209,23 @@ bar {
     }
 }
 
+# Launch application launcher
 bindsym Mod1+space exec rofi -show combi
+
+# Restore background
 exec nitrogen --restore
 #default_border pixel
+
+# Notification demon
 exec wired
+
+# Audio system-tray icon
 exec pasystray
+
+
+# Compositor
 exec picom -b
+
+# adjust transparency
+bindsym $mod+t exec picom-trans -c -5
+bindsym $mod+Shift+t exec picom-trans -c +5
