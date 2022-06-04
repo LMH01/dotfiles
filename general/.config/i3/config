@@ -219,8 +219,11 @@ bar {
     }
 }
 
-# Launch application launcher
+# rofi
 bindsym Mod1+space exec rofi -show combi
+
+# rofi emoji
+bindsym $mod+Mod1+space exec rofi -show emoji
 
 # Restore background
 exec nitrogen --restore
