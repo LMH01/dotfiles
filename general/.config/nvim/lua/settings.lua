@@ -1,2 +1,2 @@
-vim.cmd("colorscheme onedark")
+vim.cmd("colorscheme dracula")
 vim.wo.number = true

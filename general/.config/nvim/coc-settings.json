@@ -1,3 +1,4 @@
 {
-	"rpc.enabled": false
+  "rpc.enabled": false,
+  "Lua.telemetry.enable": false
 }

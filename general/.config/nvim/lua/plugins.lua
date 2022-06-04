@@ -28,7 +28,10 @@ return require("packer").startup(function(use)
 		config = pconf("treesitter")
 	}
 
-	use "joshdick/onedark.vim"
+	use {
+		"dracula/vim",
+		as = "dracula",
+	}
 
 	use "cespare/vim-toml"
 
