@@ -1,5 +1,10 @@
-theme = "nord-dark"
-icons = "awesome5"
+[theme]
+file = "dracula-custom"
+
+[icons]
+name = "awesome5"
+#theme = "nord-dark"
+#icons = "awesome5"
 
 [[block]]
 block = "focused_window"

@@ -1,0 +1,14 @@
+#Colors adepted from https://github.com/dracula/dracula-theme
+idle_bg = "#282a36" # Background
+idle_fg = "#6272a4" # Comment
+info_bg = "#6272a4" # Comment
+info_fg = "#282a36" # Background
+good_bg = "#50fa75" # Green
+good_fg = "#2e3440" # nord0 - To adjust
+warning_bg = "#ffb86c" # Orange
+warning_fg = "#282a36" # Background
+critical_bg = "#ff5555" # Red
+critical_fg = "#282a36" # Background
+separator = "\ue0b2"
+separator_bg = "auto"
+separator_fg = "auto"
