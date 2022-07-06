@@ -30,6 +30,15 @@ return require("packer").startup(function(use)
       config = pconf "line",
   }
 
+  use {
+      "nvim-telescope/telescope.nvim",
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope-ui-select.nvim",
+      },
+      config = pconf "telescope",
+  }
+
  	use {
       "Saecki/crates.nvim",
       config = function()
