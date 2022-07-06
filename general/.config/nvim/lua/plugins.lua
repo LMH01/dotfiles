@@ -24,6 +24,12 @@ return require("packer").startup(function(use)
       },
   }
 
+  use {
+      "nvim-lualine/lualine.nvim",
+      requires = "arkav/lualine-lsp-progress",
+      config = pconf "line",
+  }
+
  	use {
       "Saecki/crates.nvim",
       config = function()
