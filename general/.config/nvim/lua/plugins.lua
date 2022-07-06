@@ -3,15 +3,38 @@ local function pconf(plugin)
 end
 
 return require("packer").startup(function(use)
+  use {
+      "neovim/nvim-lspconfig",
+      config = pconf "lspconf",
+  }
+  use "hrsh7th/cmp-nvim-lsp"
+  use "hrsh7th/cmp-buffer"
+  use "hrsh7th/cmp-path"
+  use "hrsh7th/cmp-cmdline"
+  use { "hrsh7th/nvim-cmp", config = pconf "nvim_cmp" }
+
+  use "saadparwaiz1/cmp_luasnip"
+  use {
+      "L3MON4D3/LuaSnip",
+      config = pconf "nvim_luasnip",
+      requires = {
+          "rafamadriz/friendly-snippets",
+          -- temporarily removed due to syntax error in recent commit
+          --"honza/vim-snippets",
+      },
+  }
+
+ 	use {
+      "Saecki/crates.nvim",
+      config = function()
+          require("crates").setup {}
+      end,
+  }
+
 	use "wbthomason/packer.nvim"
 	use {
 		"steelsojka/pears.nvim",
 		config = pconf("nvim_pears")
-	}
-	use {
-		"neoclide/coc.nvim",
-		branch = "release",
-		config = pconf("coc")
 	}
 
 	use "kyazdani42/nvim-web-devicons"
