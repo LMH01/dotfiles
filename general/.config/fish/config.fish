@@ -7,6 +7,9 @@ set -gx LESS_TERMCAP_so \e'[01;33m'
 set -gx LESS_TERMCAP_ue \e'[0m'
 set -gx LESS_TERMCAP_us \e'[1;4;31m'
 
+# gpg
+set -gx GPG_TTY (tty)
+
 function ifpresent
     if which $argv[1] &>/dev/null
         eval $argv[2..-1]
