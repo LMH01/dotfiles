@@ -218,6 +218,8 @@ bindsym Mod1+space exec rofi -show combi
 
 # rofi emoji
 bindsym $mod+Mod1+space exec rofi -show emoji
+# rofi calc
+bindsym $mod+Mod1+c exec rofi -show calc
 
 # Restore background
 exec nitrogen --restore
