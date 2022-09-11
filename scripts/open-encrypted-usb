@@ -1,0 +1,39 @@
+#!/bin/bash
+# Check if started as root
+if [ "$EUID" -ne 0 ]
+then echo "ERROR: This script must be run with root privileges"
+    exit 1
+fi
+# Check if /mnt is empty
+if ! [ -z "$(ls -A /mnt)" ]
+then
+    if ! [[ -d "/mnt/encrypted" ]]
+    then
+        echo "Error: Unable to mount, /mnt is not empty"
+        exit 1
+    fi
+fi
+# Check if /mnt/enrypted exists
+if ! [[ -d "/mnt/encrypted" ]]
+then 
+    mkdir /mnt/encrypted
+fi
+# Check if /mnt/encrypted is empty
+if ! [ -z "$(ls -A /mnt/encrypted)" ]
+then
+    echo "Error: Unable to mount, /mnt/encrypted is not empty"
+    exit 1
+fi
+(
+    veracrypt -t -k "" --pim=0 --protect-hidden=no /dev/sda /mnt/encrypted/
+    if [ $? -ne 0 ]
+    then
+        rm -r /mnt/encrypted
+        exit 1
+    fi
+)
+if [ $? -ne 0 ]
+then
+     exit 1
+fi
+echo "Encrypted usb-stick is now mounted on /mnt/encrypted"

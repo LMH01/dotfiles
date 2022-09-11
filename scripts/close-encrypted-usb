@@ -1,0 +1,27 @@
+#!/bin/bash
+# Check if started as root
+if [ "$EUID" -ne 0 ]
+then echo "ERROR: This script must be run with root privileges"
+    exit
+fi
+(
+    if ! veracrypt -d /dev/sda
+    then
+        exit 1
+    fi
+)
+if [ $? -ne 0 ]
+then
+     exit 1
+fi
+(
+    if ! rm -r /mnt/encrypted
+    then
+        exit 1
+    fi
+)
+if [ $? -ne 0 ]
+then
+     exit 1
+fi
+echo "Encrypted usb-stick is no longer mounted"

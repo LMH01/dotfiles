@@ -1,0 +1,180 @@
+#!/bin/bash
+# Check if started as root
+if [ "$EUID" -ne 0 ]
+then echo "ERROR: This script must be run with root privileges"
+    exit
+fi
+rootFolder=$(pwd)
+echo "This will install my basic setup for i3"
+echo "This software will be installed"
+echo "paru - AUR-Helper"
+echo "git"
+echo "base-devel group"
+echo "rustup and stable rust toolchain"
+echo "i3 - Window Manager"
+echo "i3status-rust - Status bar for i3"
+echo "sddm - Login manager"
+echo "picom - Compositor"
+echo "fish - Shell"
+echo "starship - Cross-shell prompt for astronauts"
+echo "pulseaudio - Audiodriver"
+echo "pasystray - Pulseaudio system tray"
+echo "flameshot - Screenshot tool"
+echo "rofi - Window switcher and application launcher"
+echo "rofi-emoji - Emoji selector for rofi"
+echo "neovim - Vim in better"
+echo "nvim-packer - Neovim plugin manager"
+echo "nitrogen - Background browser"
+echo "alacritty - Terminal emulator"
+echo "ttf-font-awesome - Font awesome nerdfont"
+echo
+echo "Note:"
+echo "- If paru is already installed it is skipped."
+echo "- If a package (exluding paru) is already installed it will be reinstalled."
+echo "- All existing config files for fish, i3, i3status-rust, nvim, rofi, wired, sddm, paru and pacman will be replaced."
+#TODO Add a list here what programs will be installed
+read -p "Would you like to continue? [Y/n] " -r
+echo    # (optional) move to a new line
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+fi
+# Create temp directory
+if ! [[ -f "/tmp/setup-linux" ]]
+then 
+    rm -r /tmp/setup-linux/
+fi
+mkdir /tmp/setup-linux/
+cd /tmp/setup-linux/
+if ! [ -x "$(command -v git)" ]
+then
+    echo "Installing git"
+    (
+        exec pacman -S git --noconfirm
+    )
+fi    
+# Install required development tools
+echo "Installing required development tools"
+(
+    exec pacman -S base-devel rustup --noconfirm
+)
+# Install/update rust toolchain
+echo "Installing/updating rust toolchain"
+(
+    (
+        su $(logname) -c "exec rustup toolchain install stable"
+    )
+)
+# Install paru
+if [ -x "$(command -v paru)" ]
+then
+    echo "Paru already exists, skipping installation"
+else
+    echo "Preparing to install paru"
+    echo "Cloning git repository"
+    (
+        exec git clone https://aur.archlinux.org/paru.git
+    )
+    cd paru/
+    echo "Compiling and installing paru"
+    # Creating temp user with no sudo rights to create the package
+    chmod -R a+rwX ../paru
+    (
+        su $(logname) -c "makepkg -s"
+        exec pacman -U $(ls *.zst) --noconfirm
+    )
+    cd ..
+fi
+# Clone dotfiles repository
+dotfilesCloned=false
+echo "Cloning dofiles repository"
+(
+    cd /tmp/setup-linux
+    exec git clone https://github.com/LMH01/dotfiles.git
+)
+configFolder="$(pwd)/dotfiles/general/.config"
+# Install other required packages
+(
+    echo "Installing other packages"
+    exec paru -S i3 i3status-rust picom sddm fish starship pulseaudio pasystray flameshot rofi rofi-emoji archlinux-wallpaper neovim zoxide nitrogen alacritty ttf-font-awesome --noconfirm
+)
+# Install nvim-packer-git
+echo "Preparing to install nvim-packer-git"
+echo "Cloning git repository"
+cd /tmp/setup-linux/
+(
+    exec git clone https://aur.archlinux.org/nvim-packer-git.git
+)
+cd nvim-packer-git
+echo "Compiling and installing nvim-packer-git"
+# Creating temp user with no sudo rights to create the package
+chmod -R a+rwX ../nvim-packer-git
+(
+    su $(logname) -c "makepkg -s"
+    exec pacman -U $(ls *.zst) --noconfirm
+)
+cd ..
+# Install archlinux-themes-sddm
+echo "Preparing to install archlinux-themes-sddm"
+echo "Cloning git repository"
+cd /tmp/setup-linux/
+(
+    exec git clone https://aur.archlinux.org/archlinux-themes-sddm.git
+)
+cd archlinux-themes-sddm
+echo "Compiling and installing archlinux-themes-sddm"
+# Creating temp user with no sudo rights to create the package
+chmod -R a+rwX ../archlinux-themes-sddm
+(
+    su $(logname) -c "makepkg -s"
+    exec pacman -U $(ls *.zst) --noconfirm
+)
+cd ..
+# Create sddm config
+echo "Creating sddm config"
+if [[ -f "/etc/sddm.conf" ]]
+then 
+    rm /etc/sddm.conf
+fi
+touch /etc/sddm.conf
+printf "[Theme]\nCurrent=archlinux-simplyblack" > /etc/sddm.conf
+# Copy config files
+echo "Copying config files"
+su $(logname) -c "mkdir -p ~/.config/fish && cp -rf $configFolder/fish ~/.config/"
+su $(logname) -c "mkdir -p ~/.config/i3 && cp -rf $configFolder/i3 ~/.config/"
+su $(logname) -c "mkdir -p ~/.config/i3status-rust && cp -rf $configFolder/i3status-rust ~/.config/"
+su $(logname) -c "mkdir -p ~/.config/rofi && cp -rf $configFolder/rofi ~/.config/"
+su $(logname) -c "mkdir -p ~/.config/wired && cp -rf $configFolder/wired ~/.config/"
+su $(logname) -c "mkdir -p ~/.local/share/rofi/themes && cp -rf $configFolder/../.local/share/rofi/themes/dracula.rasi ~/.local/share/rofi/themes/dracula.rasi"
+cp -rf $configFolder/../etc/pacman.conf /etc/
+cp -rf $configFolder/../etc/paru.conf /etc/
+# Ask if the nvim config files should be copied or if a symlink should be created that points to the git folder
+# Symlink is only available if the dotfiles repository has been cloned before the script was started
+if $dotfilesCloned
+then
+    read -p "Create symlink to nvim config files instead of copying them? [Y(recommended)/n] " -r
+    echo    # (optional) move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        su $(logname) -c "ln -s $configFolder/nvim ~/.config/nvim"
+        echo "Symlink created"
+    else
+        su $(logname) -c "cp -rf $configFolder/nvim ~/.config/nvim"
+    fi
+else
+    su $(logname) -c "cp -rf $configFolder/nvim ~/.config/nvim"
+fi
+# enable sddm
+echo "Enabling sddm service"
+systemctl enable sddm.service
+# set wallpaper
+#echo "Setting wallpaper"
+#nitrogen --set-auto /usr/share/backgrounds/archlinux/awesome.png
+# set default shell
+echo "Setting default shell"
+su $(logname) -c "chsh -s /bin/fish"
+# delete temp directory
+echo "Deleting temp directory"
+rm -r /tmp/setup-linux/
+echo "Setup completed, please reboot system."
+echo "To enable the correct wallpaper run: nitrogen --set-auto /usr/share/backgrounds/archlinux/awesome.png once the system is restarted."
