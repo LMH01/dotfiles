@@ -1,9 +1,9 @@
 configuration {
-    /* requires rofi-emoji */
-	modi: "window,drun,ssh,combi,emoji";
+    /* requires rofi-emoji and rofi-calc*/
+	modi: "window,drun,ssh,combi,emoji,calc";
 	font: "Iosevka 12";
 	show-icons: true;
 	icon-theme: "candy-icons";
 	combi-modi: "window,drun,run";
 }
-@theme "/home/louis/.local/share/rofi/themes/dracula.rasi"
+@theme "/home/louis/.local/share/rofi/themes/dracula-sidebar.rasi"
