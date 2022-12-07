@@ -16,6 +16,15 @@ function ifpresent
     end
 end
 
+# aliases
+alias yay="paru"
+alias pacman="sudo pacman"
+alias stef /home/louis/.local/lib/python3.10/site-packages/stef/scripts/runtests.py
+alias ls="lsd --group-directories-first -hF --color always --date relative"
+alias ll="ls -hlS"
+#alias li="ls -hlF"
+alias l="ls -hl"
+
 # initialization stuff
 ifpresent starship 'starship init fish | source'
 ifpresent zoxide 'zoxide init fish | source'
