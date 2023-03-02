@@ -1,34 +1,28 @@
 [theme]
-file = "dracula-custom"
+theme = "dracula-custom"
 
 [icons]
-name = "awesome5"
-#theme = "nord-dark"
-#icons = "awesome5"
+icons = "awesome5"
 
 [[block]]
 block = "focused_window"
-max_width = 50
-show_marks = "visible"
+format = " {$title.str(max_w:50)}"
 
 [[block]]
 block = "music"
-buttons = ["prev", "play", "next"]
+format = " $icon {$combo.str(max_w:25,rot_interval:0.5) $prev $play $next }"
 
 [[block]]
 block = "disk_space"
 info_type = "used"
-format = "{icon} {used}/{total}"
+format = " {$icon} {$used}/{$total}"
 warning = 80
 alert = 95
 
 [[block]]
 block = "memory"
-format_mem = "{mem_used}/{mem_total}({mem_used_percents})"
-format_swap = "{swap_used}/{swap_total}({swap_used_percents})"
-display_type = "memory"
-icons = true
-clickable = true
+format = " $icon {$mem_used}/{$mem_total}({$mem_used_percents})"
+format_alt = " $icon {$swap_used}/{$swap_total}({$swap_used_percents})"
 interval = 5
 warning_mem = 80
 warning_swap = 80
@@ -38,7 +32,7 @@ critical_swap = 95
 [[block]]
 block = "cpu"
 interval = 1
-format = "{barchart} {utilization}"
+format = " $icon {$barchart} {$utilization}"
 
 [[block]]
 block = "sound"
