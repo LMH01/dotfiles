@@ -6,7 +6,7 @@ icons = "awesome5"
 
 [[block]]
 block = "focused_window"
-format = " {$title.str(max_w:50)}"
+format = " $title.str(max_w:50)|"
 
 [[block]]
 block = "music"
