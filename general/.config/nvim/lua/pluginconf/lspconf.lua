@@ -23,7 +23,7 @@ lspc.rust_analyzer.setup {
         },
     },
 }
-lspc.sumneko_lua.setup {
+lspc.lua_ls.setup {
     capabilities = caps,
     settings = {
         Lua = {
