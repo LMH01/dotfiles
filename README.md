@@ -1,3 +1,5 @@
+# This repository has been archived, because I switched to nixos. My current config files can be found here: [github.com/lmh01/nixos](https://github.com/lmh01/nixos)
+
 # Folders
 Device specific configs are located in the [specific](./specific/) folder, all other configs are stored in [general/.config](./general/.config/) and [general/etc](./general/etc/).
 - Red is my old Dell laptop
